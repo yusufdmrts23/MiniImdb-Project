@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IMDb Clone - Film Detayı</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <% if (user) { %>
+      <p>Giriş yapan kullanıcı: <%= user.username %></p>
+    <% } %>
+
+    <% if (!user) { %>
+      <p><a href="/login">Giriş yap</a> veya <a href="/register">kayıt ol</a> </p>
+    <% } else { %>
+      <p><a href="/logout">Çıkış yap</a></p>
+    <% } %>
+    
+    <h1><%= film.Title %></h1>
+    <% if (film.Imdbrating) { %>
+      <p><strong>IMDb Rating:</strong> <%= film.Imdbrating %></p>
+    <% } %>
+  
+    <% if (film.Poster) { %>
+      <img src="<%= film.Poster %>" alt="<%= film.Title %> Poster" class="img-fluid" width="200" height="300">
+    <% } %>
+
+    <p><strong>Year:</strong> <%= film.Year %></p>
+    <p><strong>Runtime:</strong> <%= film.Runtime %> </p>
+    <p><strong>Plot:</strong> <%= film.Plot %></p>
+    <% if (film.Awards) { %>
+      <p><strong>Awards:</strong> <%= film.Awards %></p>
+    <% } %>
+
+    <h2>Aktörler</h2>
+    <ul class="list-group">
+      <% aktorler.forEach(function(aktor) { %>
+        <li class="list-group-item">
+          <a href="/actor/<%= aktor.ActorID %>"><%= aktor.Name%></a>
+        </li>
+      <% }); %>
+    </ul>
+
+    <h2>Yorumlar</h2>
+    <ul class="list-group">
+      <% yorumlar.forEach(function(yorum) { %>
+        <li class="list-group-item">
+          <p><strong>Username:</strong> <%= yorum.Username %></p>
+          <p><strong>Comment:</strong> <%= yorum.Comment %></p>
+          <p><strong>Rating:</strong> <%= yorum.Rating %></p>
+        </li>
+      <% }); %>
+    </ul>
+
+    <% if (user) { %>
+      <h2>Yorum Yap</h2>
+      <form method="POST" action="/film/<%= film.Imdbid %>/yorum">
+        <div class="form-group">
+          <label for="kullaniciAdi">Kullanıcı Adı:</label>
+          <input type="text" name="kullaniciAdi" value="<%= user.username %>" class="form-control" readonly>
+        </div>
+        <div class="form-group">
+          <label for="yorumMetni">Yorum:</label>
+          <textarea name="yorumMetni" class="form-control" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="oy">Oy:</label>
+          <input type="number" name="oy" min="1" max="10" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Yorum Yap</button>
+      </form>
+    <% } %>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IMDb Clone - Kayıt Ol</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5">Kayıt Ol</h1>
+    <form class="mt-4" method="POST" action="/register">
+      <div class="form-group">
+        <label for="username">Kullanıcı Adı:</label>
+        <input type="text" class="form-control" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email">E-posta:</label>
+        <input type="email" class="form-control" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Parola:</label>
+        <input type="password" class="form-control" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="firstName">Ad:</label>
+        <input type="text" class="form-control" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Soyad:</label>
+        <input type="text" class="form-control" name="lastName" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+    </form>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

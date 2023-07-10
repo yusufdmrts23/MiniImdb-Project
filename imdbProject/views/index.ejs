@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IMDb Clone - Ana Sayfa</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">IMDb </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <% if (user) { %>
+          <li class="nav-item">
+            <p class="nav-link">Giriş yapan kullanıcı: <%= user.username %></p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/profile">Kullanıcı Profili</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Çıkış yap</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Giriş yap</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Kayıt ol</a>
+          </li>
+        <% } %>
+        <li class="nav-item">
+          <a class="nav-link" href="/top-rated-films">En Yüksek Puanlı Filmler</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/top-actors">En Çok Tür Oyunculuğu Yapan Aktörler</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/popular-actors">Son 10 Yılda Çok Film Çeken Aktörler</a>
+        </li>
+      </ul>
+    </div>
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="genre">Film Türü:</label>
+        <select id="genre" name="genre" class="form-control" onchange="filterFilms()">
+          <option value="">Tümü</option>
+          <% genres.forEach(function(genre) { %>
+            <option value="<%= genre.Genre %>"><%= genre.Genre %></option>
+          <% }); %>
+        </select>
+      </div>
+    </form>
+  </nav>
+
+  <div class="container">
+    <h1>Tüm Filmler</h1>
+    
+    <ul id="filmList">
+      <% films.forEach(function(film) { %>
+        <% var filterFilmGenres = filmGenres.filter(function(filmGenre) { return filmGenre.Imdbid === film.Imdbid; }); %>
+        <% var filmGenreNames = filterFilmGenres.map(function(filmGenre) { return filmGenre.Genre; }); %>
+        <li data-genres="<%= filmGenreNames.join(', ') %>" class="list-group-item">
+          <a href="/film/<%= film.Imdbid %>">
+            <% if (film.Poster) { %>
+              <img src="<%= film.Poster %>" alt="<%= film.Title %> Poster" class="img-fluid" width="50" height="75">
+            <% } %>
+            
+            <%= film.Title %>
+            <span class="float-right"><%= film.Imdbrating %></span>
+          </a>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function filterFilms() {
+      var selectedGenre = document.getElementById("genre").value;
+      var filmList = document.querySelectorAll("#filmList li");
+      
+      for (var i = 0; i < filmList.length; i++) {
+        var filmGenres = filmList[i].getAttribute("data-genres").split(", ");
+        
+        if (selectedGenre === "" || filmGenres.includes(selectedGenre)) {
+          filmList[i].style.display = "block";
+        } else {
+          filmList[i].style.display = "none";
+        }
+      }
+    }
+  </script>
+</body>
+</html>
+

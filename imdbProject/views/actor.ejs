@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IMDb Clone - Aktör Detayı</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <% if (user) { %>
+      <p>Giriş yapan kullanıcı: <%= user.username %></p>
+    <% } %>
+
+    <% if (!user) { %>
+      <p><a href="/login">Giriş yap</a> veya <a href="/register">kayıt ol</a> </p>
+    <% } else { %>
+      <p><a href="/logout">Çıkış yap</a></p>
+    <% } %>
+
+    <h1>Aktör Detayı</h1>
+    <h2><%= actor.Name %></h2>
+
+    <h3>Oynadığı Filmler</h3>
+    <ul class="list-group">
+      <% filmler.forEach(function(film) { %>
+        <li class="list-group-item">
+          <a href="/film/<%= film.Imdbid %>">
+            <%= film.Title %>
+          </a>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

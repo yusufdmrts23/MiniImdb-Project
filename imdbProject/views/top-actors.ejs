@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IMDb Clone - En İyi Oyuncular</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .text-right {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">IMDb Clone</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <% if (user) { %>
+          <li class="nav-item">
+            <p class="nav-link text-white">Giriş yapan kullanıcı: <%= user.username %></p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Çıkış yap</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Giriş yap</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Kayıt ol</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>En İyi Oyuncular</h1>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Oyuncu İsmi</th>
+          <th>Oynadığı Tür Sayısı</th>
+          <th>Oynadığı Tüm Türler</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% topActors.forEach(function(actor) { %>
+          <tr>
+            <td><%= actor.actor_name %></td>
+            <td><%= actor.genre_count %></td>
+            <td><%= actor.genres_played %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IMDb Clone - Son 10 Yılda Çok Film Çeken Aktörler</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-4">Son 10 Yılda Çok Film Çeken Aktörler</h1>
+
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th scope="col">Oyuncu İsmi</th>
+          <th scope="col">Oynadığı Film Sayısı</th>
+          <th scope="col">Oynadığı Filmler</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% actors.forEach(function(actor) { %>
+          <tr>
+            <td><%= actor.ActorName %></td>
+            <td><%= actor.FilmCount %></td>
+            <td><%= actor.Films %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
